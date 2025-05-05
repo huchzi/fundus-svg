@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Fundus Diagram Schema",
+  "description": "Schema for representing ophthalmological fundus diagram data",
+  "type": "object",
+  "required": ["side"],
+  "properties": {
+    "side": {
+      "type": "string",
+      "enum": ["OD", "OS"],
+      "description": "Side of the eye (OD for right, OS for left)"
+    },
+    "tears": {
+      "type": "array",
+      "description": "List of retinal tears",
+      "items": {
+        "type": "object",
+        "required": ["time", "location", "size", "type"],
+        "properties": {
+          "time": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 12,
+            "description": "Time on the clock (0-12) representing the location of the tear"
+          },
+          "location": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Peripheral location of the tear relative to the outermost ring of the fundus"
+          },
+          "size": {
+            "type": "string",
+            "enum": ["small", "medium", "large"],
+            "description": "Size of the tear"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["horseshoe", "round"],
+            "description": "Type of the retinal tear (horseshoe for a crescent shape, round for a circular tear)"
+          },
+          "surrounding_treatment": {
+            "type": "string",
+            "enum": ["argon_laser", "cryopexy", "none"],
+            "description": "Optional treatment surrounding the tear (Argon Laser or Cryopexy)"
+          }
+        }
+      }
+    },
+    "lesions": {
+      "type": "array",
+      "description": "List of retinal lesions",
+      "items": {
+        "type": "object",
+        "required": ["times", "radii", "type"],
+        "properties": {
+          "times": {
+            "type": "array",
+            "description": "List of times (clock positions) where the lesion occurs",
+            "items": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 12
+            }
+          },
+          "radii": {
+            "type": "array",
+            "description": "List of radii corresponding to each time point, relative to the outermost ring of the fundus",
+            "items": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "type": {
+            "type": "string",
+            "enum": ["amotio", "retinoschisis", "giant_rip"],
+            "description": "Type of the lesion (Amotio for retinal detachment, Retinoschisis for retinal splitting, Giant Rip for large retinal tear)"
+          },
+          "surrounding_treatment": {
+            "type": "string",
+            "enum": ["argon_laser", "cryopexy", "none"],
+            "description": "Optional treatment surrounding the lesion (Argon Laser or Cryopexy)"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
