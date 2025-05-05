@@ -5,7 +5,7 @@ is_valid <- function(json_data) {
   validation_result <- jsonvalidate::json_validate(json_data, schema = json_schema)
   
   if (!validation_result) {
-    cat("Validation failed:\n")
+    cat("\nValidation failed:\n")
     print(jsonvalidate::json_validate(json_data, schema = json_schema, verbose = TRUE))
     return(FALSE)
   } else {
